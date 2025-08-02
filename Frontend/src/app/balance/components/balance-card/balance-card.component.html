@@ -1,0 +1,59 @@
+<div class="w-full h-full flex items-end ">
+    <div class="bg-white w-full h-9/10 rounded-t-lg p-3">
+        <h1 class="text-2xl font-bold">Tarjetas.</h1>
+        
+        <div class="navbar">
+            <a 
+                routerLink="/accounts"
+                class="btn btn-secondary mx-1"
+            >Cuentas</a>
+            
+            <a 
+                routerLink="/cards"
+                class="btn btn-secondary mx-1"
+            >Tarjetas</a>
+        </div>
+
+        <div class="flex flex-col" *ngIf="cardResource.hasValue()">
+          
+            @for (item of cardResource.value().data; track $index) {        
+                <div
+                    [routerLink] = "['/movements', item.accountId]"
+                    class="relative w-80 h-48 mb-2 bg-gradient-to-br from-purple-600 to-indigo-800 rounded-xl shadow-lg p-6 text-white font-sans overflow-hidden">
+
+                    <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
+                    <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-white opacity-10 rounded-full"></div>
+
+                    <div class="w-12 h-8 bg-gray-300 rounded-md shadow-inner mb-4"></div>
+
+                    <!-- Card Number -->
+                    <div class="text-xl tracking-wider font-mono mb-4">
+                       {{ '**** **** **** ' + item.cardNumber.slice(-4) }}
+                    </div>
+
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <div class="text-xs opacity-75">Nombre</div>
+                            <div class="text-base font-medium uppercase">{{ item.userName }}</div>
+                        </div>
+
+                        <div class="text-right">
+                        <div class="text-xs opacity-75"></div>
+                        <div class="text-base font-medium"></div>
+                        </div>
+                    </div>
+
+                    <div class="absolute bottom-4 right-6 text-2xl font-bold opacity-80">
+                        VISA
+                    </div>
+
+                </div>
+            }
+
+        </div>
+       
+
+    </div>
+    
+
+</div>

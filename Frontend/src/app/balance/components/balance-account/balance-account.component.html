@@ -1,0 +1,36 @@
+<div class="w-full h-full flex items-end ">
+    <div class="bg-white w-full h-9/10 rounded-t-lg p-3">
+        <h1 class="text-2xl font-bold">Cuentas.</h1>
+        
+        <div class="navbar">
+            <a 
+                routerLink="/accounts"
+                class="btn btn-secondary mx-1"
+            >Cuentas</a>
+            
+            <a 
+                routerLink="/cards"
+                class="btn btn-secondary mx-1"
+            >Tarjetas</a>
+        </div>
+
+            <div class="flex flex-col" *ngIf="accountResource.hasValue()">
+
+                @for (item of accountResource.value().data; track $index) {
+                    <div class="card card-border bg-base-100 mb-2">
+                        <div class="card-body">
+                            <h2 class="card-title"><strong>Cuenta {{ $index + 1 }} </strong> - {{ item.accountNumber }}</h2>
+                            <div class=" flex justify-between ">
+                                <p>Saldo</p>
+                                <p>{{ item.balance }}</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+               
+            </div>
+
+
+    </div>
+</div>

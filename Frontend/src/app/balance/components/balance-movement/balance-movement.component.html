@@ -1,0 +1,79 @@
+<div class="w-full h-full flex items-end ">
+    <div class="bg-white w-full h-9/10 rounded-t-lg p-3">
+        <h1 class="text-2xl font-bold">Movimientos.</h1>
+        
+      @if (movementsResource.hasValue()) {
+        @for (item of movementsResource.value().data; track $index) {
+          
+              <!-- Ícono según tipo -->
+    <div class="flex items-center gap-4">
+      <div
+        class="rounded-full p-3"
+        [ngClass]="{
+          'bg-green-100 text-green-600': item.type === 'deposit',
+          'bg-red-100 text-red-600': item.type === 'withdrawal',
+          'bg-yellow-100 text-yellow-700': item.type === 'transfer'
+        }"
+      >
+        <svg
+          *ngIf="item.type === 'deposit'"
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 4v16m8-8H4"
+          />
+        </svg>
+        <svg
+          *ngIf="item.type === 'withdrawal' || item.type === 'transfer' "
+          xmlns="http://www.w3.org/2000/svg"
+          class="w-6 h-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M20 12H4"
+          />
+        </svg>
+      </div>
+
+      <!-- Descripción y fecha -->
+      <div>
+        <p class="font-semibold text-gray-800">
+          {{ item.type === 'deposit' ? 'Depósito' : 'Retiro' }}
+        </p>
+        <p class="text-sm text-gray-500">{{ item.description }}</p>
+        <p class="text-xs text-gray-400">
+          {{ item.timestamp | date: 'dd MMMM yyyy, h:mm a' }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Monto -->
+    <div class="text-right">
+      <p
+        class="font-bold"
+        [ngClass]="{
+          'text-green-600': item.type === 'deposit',
+          'text-red-600': item.type === 'withdrawal'
+        }"
+      >
+        {{ item.type === 'deposit' ? '+' : '-' }} Q{{ item.amount }}
+      </p>
+    </div>
+
+        }
+      }       
+
+    </div>
+</div>
